@@ -1,5 +1,6 @@
 package net.project_ivan.popularmovies;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -49,6 +50,9 @@ public class MainActivityFragment extends Fragment {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
+                Intent intent = new Intent(getActivity(), MovieDetailsActivity.class);
+                intent.putExtra("movie", (Movie) parent.getItemAtPosition(position));
+                startActivity(intent);
             }
         });
         return rootView;
@@ -74,11 +78,9 @@ public class MainActivityFragment extends Fragment {
             HttpURLConnection urlConnection = null;
             BufferedReader reader = null;
 
-
-
             String movieJsonStr = null;
             String baseUrl = "http://api.themoviedb.org/3/discover/movie?";
-            String apiKey = "46d37a5520a254b88aaeb9e47f706a54";
+            String apiKey = "API_KEY";
             String sortBy = params[0];
             Uri builtUri = Uri.parse(baseUrl).buildUpon()
                     .appendQueryParameter("sort_by", sortBy + ".desc")
@@ -181,6 +183,7 @@ public class MainActivityFragment extends Fragment {
             final String ORIGINAL_TITLE = "original_title";
             final String POPULARITY = "popularity";
             final String VOTE_COUNT = "vote_count";
+            final String VOTE_AVERAGE = "vote_average";
             final String RELEASE_DATE = "release_date";
 
             JSONObject movieJson = new JSONObject(movieJsonStr);
@@ -195,11 +198,13 @@ public class MainActivityFragment extends Fragment {
                 String posterPath = movie.getString(POSTER_PATH);
                 String overview = movie.getString(OVERVIEW);
                 String originalTitle = movie.getString(ORIGINAL_TITLE);
-                int popularity = movie.getInt(POPULARITY);
+                double popularity = movie.getInt(POPULARITY);
                 int voteCount = movie.getInt(VOTE_COUNT);
+                double voteAverage = movie.getDouble(VOTE_AVERAGE);
                 String releaseDate = movie.getString(RELEASE_DATE);
 
-                movies[i] = new Movie(posterPath, overview, originalTitle, popularity, voteCount, releaseDate);
+                movies[i] = new Movie(posterPath, overview, originalTitle, popularity, voteCount,
+                        voteAverage, releaseDate);
 
             }
             return movies;

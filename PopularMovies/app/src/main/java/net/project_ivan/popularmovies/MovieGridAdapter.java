@@ -54,8 +54,8 @@ public class MovieGridAdapter extends BaseAdapter {
         ImageView imageView;
         if(convertView == null) {
             imageView = new ImageView(context);
-            imageView.setLayoutParams(new GridView.LayoutParams(500, 1000));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            imageView.setLayoutParams(new GridView.LayoutParams(GridView.AUTO_FIT, 1000));
             imageView.setPadding(2, 2, 2, 2);
         } else {
             imageView = (ImageView) convertView;

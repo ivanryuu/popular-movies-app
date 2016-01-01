@@ -1,4 +1,20 @@
 <resources>
     <string name="app_name">Popular Movies</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="pref_sort_by_key" translatable="false">sortBy</string>
+    <string name="pref_sort_by_default">popularity</string>
+    <string name="pref_sort_by_title">Sort movies by</string>
+
+    <!-- Strings related to Settings -->
+    <string name="pref_header_general">General</string>
+
+    <string-array name="pref_sort_by_titles">
+        <item>Popularity</item>
+        <item>Highest-rated</item>
+    </string-array>
+    <string-array name="pref_sort_by_values">
+        <item>popularity</item>
+        <item>highest_rated</item>
+    </string-array>
 </resources>

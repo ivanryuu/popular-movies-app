@@ -19,7 +19,7 @@ public class Movie implements Parcelable {
     public double popularity;
     public int voteCount;
     public double voteAverage;
-    public Date releaseDate;
+    public String releaseDate;
 
     public Movie() {}
 
@@ -34,14 +34,8 @@ public class Movie implements Parcelable {
         this.releaseDate = parseDate(releaseDate);
     }
 
-    private Date parseDate(String date) {
-        try {
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            return df.parse(date);
-        } catch(Exception e) {
-            e.printStackTrace();
-            return new Date();
-        }
+    private String parseDate(String date) {
+        return date.substring(0,4);
     }
 
     @Override
@@ -77,6 +71,6 @@ public class Movie implements Parcelable {
         popularity = in.readDouble();
         voteCount = in.readInt();
         voteAverage = in.readDouble();
-        releaseDate = parseDate(in.readString());
+        releaseDate = in.readString();
     }
 }

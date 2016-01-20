@@ -80,8 +80,9 @@ public class MainActivityFragment extends Fragment {
 
             String movieJsonStr = null;
             String baseUrl = "http://api.themoviedb.org/3/discover/movie?";
-            String apiKey = "API_KEY";
+            String apiKey = "Your API Key";
             String sortBy = params[0];
+            if(sortBy.equals("vote_average")) baseUrl += "vote_count.gte=200";
             Uri builtUri = Uri.parse(baseUrl).buildUpon()
                     .appendQueryParameter("sort_by", sortBy + ".desc")
                     .appendQueryParameter("api_key", apiKey).build();

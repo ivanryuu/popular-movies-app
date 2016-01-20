@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -32,14 +33,23 @@ public class MovieDetailsActivityFragment extends Fragment {
         TextView popularity = (TextView) rootView.findViewById(R.id.popularity);
         TextView overview = (TextView) rootView.findViewById(R.id.overview);
         ImageView poster = (ImageView) rootView.findViewById(R.id.poster);
+        RatingBar ratingBar = (RatingBar) rootView.findViewById(R.id.ratingBar);
 
         title.setText(movie.originalTitle);
         releaseDate.setText(movie.releaseDate.toString());
         popularity.setText(""+movie.popularity);
         overview.setText(movie.overview);
         Picasso.with(getContext()).load(getPosterUri(movie.posterPath)).into(poster);
+        ratingBar.setRating(normalizeRating(movie.voteAverage));
 
         return rootView;
+    }
+
+    private String getVoteCount(int count) {
+        return "(" + count + ")";
+    }
+    private float normalizeRating(double voteAverage) {
+        return (float)(voteAverage / 2.0);
     }
 
     private String getPosterUri(String posterPath) {
